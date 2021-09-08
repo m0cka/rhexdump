@@ -109,7 +109,7 @@
 //! For example, if you want to display the ascii representation, the hexadecimal bytes and then
 //! the offsets, while having everything separated by dots, you could specify the following string:
 //!
-//! ```
+//! ```text, no_run
 //! #[ASCII] .. #[RAW] .. #[OFFSET]
 //! ```
 //!
@@ -926,7 +926,7 @@ impl<'r, 'f, F: Read> Iterator for RhexdumpFileIter<'r, 'f, F> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use std::fs::{File, OpenOptions};
+    use std::fs::OpenOptions;
     use std::io::SeekFrom;
 
     #[test]
@@ -1100,7 +1100,8 @@ mod test {
         let v = (0..0x10).collect::<Vec<u8>>();
         f.write_all(&v).expect("Cannot write to /tmp/rhexdump.test");
 
-        f.seek(SeekFrom::Start(0));
+        f.seek(SeekFrom::Start(0))
+            .expect("Cannot go back to the start of /tmp/rhexdump.test");
         let mut rhx_iter = rhx.iter_file(&mut f, None);
         assert_eq!(
             rhx_iter.next().unwrap(),
@@ -1109,14 +1110,16 @@ mod test {
             )
         );
 
-        f.seek(SeekFrom::Start(0));
+        f.seek(SeekFrom::Start(0))
+            .expect("Cannot go back to the start of /tmp/rhexdump.test");
         let mut rhx_iter = rhx.iter_file(&mut f, Some(0x8));
         assert_eq!(
             rhx_iter.next().unwrap(),
             String::from("00000000: 00 01 02 03 04 05 06 07 | ........")
         );
 
-        f.seek(SeekFrom::Start(0));
+        f.seek(SeekFrom::Start(0))
+            .expect("Cannot go back to the start of /tmp/rhexdump.test");
         let mut rhx_iter = rhx.iter_file_offset(&mut f, None, 0x1000);
         assert_eq!(
             rhx_iter.next().unwrap(),
@@ -1125,7 +1128,8 @@ mod test {
             )
         );
 
-        f.seek(SeekFrom::Start(0));
+        f.seek(SeekFrom::Start(0))
+            .expect("Cannot go back to the start of /tmp/rhexdump.test");
         let mut rhx_iter = rhx.iter_file_offset(&mut f, Some(0x8), 0x1000);
         assert_eq!(
             rhx_iter.next().unwrap(),
