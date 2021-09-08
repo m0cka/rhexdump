@@ -1,8 +1,24 @@
-//! This crate provides a hexdump library to format byte arrays and files.
+//! This crate provides a hexdump library to format byte slices and files.
 //!
-//! # Examples
+//! ## Features
+//!
+//! rhexdump provides the following features:
+//!
+//! * Hexdump of files and byte slices (with an optional base offset)
+//! * Iterators over files and byte slices (with an optional base offset)
+//! * Customizable settings:
+//!     - numeral base
+//!     - number of bytes per group
+//!     - number of bytes per line
+//!     - whether or not duplicate lines should be displayed
+//!     - output format
+//!
+//! ## Usage
 //!
 //! ### Default Hexdump Without Any Customization.
+//!
+//! You can use rhexdump with a default configuration, feed it a byte slice and simply print the
+//! result.
 //!
 //! ```
 //! use rhexdump;
@@ -25,6 +41,8 @@
 //!
 //! ### Default Hexdump With a Base Offset.
 //!
+//! If you're working with memory dumps, you can start the output from a base offset.
+//!
 //! ```
 //! use rhexdump;
 //!
@@ -45,6 +63,8 @@
 //!
 //!
 //! ### Customized Hexdump - Binary Base and 4-Byte Lines
+//!
+//! If the default configuration does not fit your need, you can specify your own.
 //!
 //! ```
 //! use rhexdump;
@@ -84,6 +104,15 @@
 //!
 //! ### Customized Hexdump - Custom Format
 //!
+//! The output format can be customized by providing a string that specifies the format of a line.
+//!
+//! For example, if you want to display the ascii representation, the hexadecimal bytes and then
+//! the offsets, while having everything separated by dots, you could specify the following string:
+//!
+//! ```
+//! #[ASCII] .. #[RAW] .. #[OFFSET]
+//! ```
+//!
 //! ```
 //! use rhexdump;
 //!
@@ -111,6 +140,8 @@
 //!
 //! ### Customized Hexdump - Masking Duplicate Lines
 //!
+//! You can group duplicate lines together to get a more readable output.
+//!
 //! ```
 //! use rhexdump;
 //!
@@ -129,7 +160,9 @@
 //! ```
 //!
 //!
-//! ### Iterators Over a File (or a Byte Array)
+//! ### Iterators Over a File (or a Byte Slice)
+//!
+//! You can iterate over a file or a byte slice.
 //!
 //! ```
 //! use rhexdump;
@@ -291,7 +324,7 @@ impl<'r, 'd, 'f> Rhexdump {
     /// );
     /// ```
     ///
-    /// Using this instance of hexdump on an array filled with zeros would display something
+    /// Using this instance of rhexdump on an array filled with zeros would display something
     /// similar to this:
     ///
     /// ```text, no_run

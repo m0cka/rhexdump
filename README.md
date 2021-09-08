@@ -1,10 +1,25 @@
 # rhexdump
 
-`rhexdump` is a Rust hexdump library to format byte arrays and files.
+`rhexdump` is a hexdump library written in Rust to format byte slices and files.
+
+## Features
+
+rhexdump provides the following features:
+
+* Hexdump of files and byte slices (with an optional base offset)
+* Iterators over files and byte slices (with an optional base offset)
+* Customizable settings:
+    - numeral base 
+    - number of bytes per group
+    - number of bytes per line
+    - whether or not duplicate lines should be displayed
+    - output format
 
 ## Usage
 
 ### Default Hexdump Without Any Customization.
+
+You can use rhexdump with a default configuration, feed it a byte slice and simply print the result.
 
 ```rust
 use rhexdump;
@@ -27,6 +42,8 @@ println!("{}", rhexdump::hexdump(&v));
 
 ### Default Hexdump With a Base Offset.
 
+If you're working with memory dumps, you can start the output from a base offset.
+
 ```rust
 use rhexdump;
 
@@ -47,6 +64,8 @@ deadbf5f: 70 71 72 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f | pqrstuvwxyz{|}~.
 
 
 ### Customized Hexdump - Binary Base and 4-Byte Lines
+
+If the default configuration does not fit your need, you can specify your own.
 
 ```rust
 use rhexdump;
@@ -86,6 +105,14 @@ println!("{}", rhx.hexdump(&v));
 
 ### Customized Hexdump - Custom Format
 
+The output format can be customized by providing a string that specifies the format of a line.
+
+For example, if you want to display the ascii representation, the hexadecimal bytes and then the offsets, while having everything separated by dots, you could specify the following string: 
+
+```
+#[ASCII] .. #[RAW] .. #[OFFSET]
+```
+
 ```rust
 use rhexdump;
 
@@ -113,6 +140,8 @@ println!("{}", rhx.hexdump(&v));
 
 ### Customized Hexdump - Masking Duplicate Lines
 
+You can group duplicate lines together to get a more readable output.
+
 ```rust
 use rhexdump;
 
@@ -131,7 +160,9 @@ println!("{}", rhx.hexdump(&a));
 ```
 
 
-### Iterators Over a File (or a Byte Array)
+### Iterators Over a File (or a Byte Slice)
+
+You can iterate over a file or a byte slice.
 
 ```rust
 use rhexdump;
