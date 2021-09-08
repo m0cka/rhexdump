@@ -18,6 +18,14 @@ rhexdump provides the following features:
     - whether or not duplicate lines should be displayed
     - output format
 
+## Add as a Dependency
+
+Add the following line under `[dependencies]` in your `Cargo.toml` file.
+
+```toml
+rhexdump = "0.1.0"
+```
+
 ## Usage
 
 ### Default Hexdump Without Any Customization.
