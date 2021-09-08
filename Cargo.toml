@@ -7,7 +7,7 @@ description = "A hexdump library to format byte slices and files"
 documentation = "https://docs.rs/rhexdump"
 readme = "README.md"
 repository = "https://github.com/m0cka/rhexdump/"
-license-file = "LICENSE"
+license = "GPL-3.0-or-later"
 keywords = ["hex", "hexdump", "library"]
 categories = ["visualization", "encoding"]
 
