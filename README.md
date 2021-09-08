@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/github/v/tag/m0cka/rhexdump?color=1982c4&style=flat-square) ![Dependencies](https://img.shields.io/badge/dependencies-none-ffca3a?style=flat-square) ![License Badge](https://img.shields.io/github/license/m0cka/rhexdump?color=8ac926&style=flat-square)
+![Version](https://img.shields.io/github/v/tag/m0cka/rhexdump?color=1982c4&style=flat-square) ![License Badge](https://img.shields.io/github/license/m0cka/rhexdump?color=8ac926&style=flat-square) ![Dependencies](https://img.shields.io/badge/dependencies-none-ffca3a?style=flat-square) [![Documentation](https://img.shields.io/badge/documentation-doc.rs-ff595e?style=flat-square)](https://docs.rs/rhexdump/0.1.0/rhexdump/)
 
 
 # rhexdump
