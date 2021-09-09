@@ -211,6 +211,7 @@ pub enum Base {
 }
 
 /// Endianess supported by rhexdump.
+#[derive(Debug, PartialEq)]
 pub enum Endianess {
     BigEndian,
     LittleEndian,
@@ -248,6 +249,7 @@ struct Format {
 const MAX_BYTES_PER_GROUP: usize = 8;
 
 /// Main object used to configure the output format.
+#[derive(Debug, PartialEq)]
 pub struct Rhexdump {
     /// Base offset from which the line offsets start (not an actual data offset).
     base: Base,
@@ -359,6 +361,11 @@ impl<'r, 'd, 'f> Rhexdump {
         display_duplicate_lines: bool,
         format: &str,
     ) -> Result<Self, RhexdumpError> {
+        // The number of bytes per group is limited to MAX_BYTES_PER_GROUP to prevent overflowing
+        // the value obtained while grouping bytes.
+        if bytes_per_group as usize > MAX_BYTES_PER_GROUP {
+            return Err(RhexdumpError::InvalidArgument);
+        }
         Ok(Self {
             base,
             endianess,
@@ -513,11 +520,13 @@ impl<'r, 'd, 'f> Rhexdump {
     }
 
     /// Sets the number of bytes per group of the current instance.
-    pub fn set_bytes_per_group(&mut self, size: u8) -> Result<(), RhexdumpError> {
-        if size as usize > MAX_BYTES_PER_GROUP {
+    pub fn set_bytes_per_group(&mut self, count: u8) -> Result<(), RhexdumpError> {
+        // The number of bytes per group is limited to MAX_BYTES_PER_GROUP to prevent overflowing
+        // the value obtained while grouping bytes.
+        if count as usize > MAX_BYTES_PER_GROUP {
             return Err(RhexdumpError::InvalidArgument);
         }
-        self.bytes_per_group = size;
+        self.bytes_per_group = count;
         Ok(())
     }
 
@@ -720,6 +729,7 @@ pub fn hexdump_file_offset<F: Read>(file: &mut F, size: Option<usize>, offset: u
 }
 
 /// Iterator over a slice of bytes that returns one formatted line at a time.
+#[derive(Debug, PartialEq)]
 pub struct RhexdumpIter<'r, 'd> {
     /// The original Rhexdump object.
     rhx: &'r Rhexdump,
@@ -823,6 +833,7 @@ impl<'r, 'd> Iterator for RhexdumpIter<'r, 'd> {
 }
 
 /// Iterator over a file that returns one formatted line at a time.
+#[derive(Debug, PartialEq)]
 pub struct RhexdumpFileIter<'r, 'f, F: Read> {
     /// The original Rhexdump object.
     rhx: &'r Rhexdump,
@@ -928,6 +939,33 @@ mod test {
     use super::*;
     use std::fs::OpenOptions;
     use std::io::SeekFrom;
+
+    #[test]
+    fn rhx_params() {
+        let rhx = Rhexdump::new(
+            Base::Bin,
+            Endianess::LittleEndian,
+            255,
+            16,
+            true,
+            "#[OFFSET]: #[RAW] | #[ASCII]",
+        );
+        assert_eq!(rhx, Err(RhexdumpError::InvalidArgument));
+        let rhx = Rhexdump::new(Base::Bin, Endianess::LittleEndian, 2, 16, true, "#[TEST]");
+        assert_eq!(
+            rhx,
+            Err(RhexdumpError::UnknownFormatType(String::from("TEST")))
+        );
+        let mut rhx = Rhexdump::default();
+        assert_eq!(
+            rhx.set_bytes_per_group(255),
+            Err(RhexdumpError::InvalidArgument)
+        );
+        assert_eq!(
+            rhx.set_format("#[TEST]"),
+            Err(RhexdumpError::UnknownFormatType(String::from("TEST")))
+        );
+    }
 
     #[test]
     fn rhx_default() {
