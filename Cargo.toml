@@ -2,7 +2,7 @@
 name = "rhexdump"
 version = "0.1.1"
 authors = ["mocka <mocka@protonmail.com>"]
-edition = "2018"
+edition = "2021"
 description = "A hexdump library to format byte slices and files"
 documentation = "https://docs.rs/rhexdump"
 readme = "README.md"
