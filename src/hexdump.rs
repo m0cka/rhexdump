@@ -83,7 +83,7 @@ impl Rhexdump {
     ///     .open(test_file)
     ///     .expect(&format!("Cannot create {}", filename));
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = Cursor::new(&input);
     ///
@@ -137,7 +137,7 @@ impl Rhexdump {
     ///     .open(test_file)
     ///     .expect(&format!("Cannot create {}", filename));
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = Cursor::new(&input);
     ///
@@ -190,7 +190,7 @@ impl Rhexdump {
     ///     .open(test_file)
     ///     .expect(&format!("Cannot create {}", filename));
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = Cursor::new(&input);
     ///
@@ -313,9 +313,14 @@ impl RhexdumpString {
     /// ```
     /// use rhexdump::prelude::*;
     ///
-    /// let v = (0..0x14).collect::<Vec<u8>>();
+    /// // Create a Rhexdump instance.
     /// let rh = RhexdumpString::new();
+    ///
+    /// // Data to format.
+    /// let v = (0..0x14).collect::<Vec<u8>>();
     /// let mut cur = std::io::Cursor::new(&v);
+    ///
+    /// // Formatting the output to a string with an offset.
     /// let out = rh.hexdump_offset(&mut cur, 0x12340000);
     /// assert_eq!(
     ///     &out,
@@ -341,9 +346,14 @@ impl RhexdumpString {
     /// ```
     /// use rhexdump::prelude::*;
     ///
-    /// let v = (0..0x14).collect::<Vec<u8>>();
+    /// // Create a Rhexdump instance.
     /// let rh = RhexdumpString::new();
+    ///
+    /// // Data to format.
+    /// let v = (0..0x14).collect::<Vec<u8>>();
     /// let mut cur = std::io::Cursor::new(&v);
+    ///
+    /// // Formatting the output to a string.
     /// let out = rh.hexdump(&mut cur);
     /// assert_eq!(
     ///     &out,
@@ -363,8 +373,13 @@ impl RhexdumpString {
     /// ```
     /// use rhexdump::prelude::*;
     ///
-    /// let v = (0..0x14).collect::<Vec<u8>>();
+    /// // Create a Rhexdump instance.
     /// let rh = RhexdumpString::new();
+    ///
+    /// // Data to format.
+    /// let v = (0..0x14).collect::<Vec<u8>>();
+    ///
+    /// // Formatting the output to a string with an offset.
     /// let out = rh.hexdump_bytes_offset(&v, 0x12340000);
     /// assert_eq!(
     ///     &out,
@@ -382,7 +397,7 @@ impl RhexdumpString {
         let iter = RhexdumpIter::new(*self, &mut dst, &mut cur).offset(offset);
         iter.for_each(|_| {});
         // UNSAFE: every single byte is a result of the hexdump formatting. We are therefore sure
-        //         that it is valid UTF-8 and we can proceed to convert the vec to string without
+        //         that it is valid UTF-8 and we can proceed to convert the vec to a string without
         //         any check.
         unsafe { String::from_utf8_unchecked(dst) }
     }
@@ -394,8 +409,13 @@ impl RhexdumpString {
     /// ```
     /// use rhexdump::prelude::*;
     ///
-    /// let v = (0..0x14).collect::<Vec<u8>>();
+    /// // Create a Rhexdump instance.
     /// let rh = RhexdumpString::new();
+    ///
+    /// // Data to format.
+    /// let v = (0..0x14).collect::<Vec<u8>>();
+    ///
+    /// // Formatting the output to a string.
     /// let out = rh.hexdump_bytes(&v);
     /// assert_eq!(
     ///     &out,
@@ -416,9 +436,14 @@ impl RhexdumpString {
     /// ```
     /// use rhexdump::prelude::*;
     ///
-    /// let v = (0..0x14).collect::<Vec<u8>>();
+    /// // Create a Rhexdump instance.
     /// let rh = RhexdumpString::new();
+    ///
+    /// // Data to format.
+    /// let v = (0..0x14).collect::<Vec<u8>>();
     /// let mut cur = std::io::Cursor::new(&v);
+    ///
+    /// // Creating an iterator outputting to a string.
     /// let mut iter = rh.iter(&mut cur);
     /// let out = iter.next().unwrap();
     /// assert_eq!(
@@ -463,7 +488,6 @@ impl From<RhexdumpConfig> for RhexdumpString {
 }
 
 impl RhexdumpGetConfig for RhexdumpString {
-    /// Returns the config associated with a rhexdump instant.
     #[inline]
     fn get_config(&self) -> RhexdumpConfig {
         self.config
@@ -530,11 +554,11 @@ impl RhexdumpStdout {
     /// // Create a Rhexdump instance.
     /// let rhx = RhexdumpStdout::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = Cursor::new(&input);
     ///
-    /// // Formatting data to the temp file.
+    /// // Formatting data to stdout.
     /// rhx.hexdump_offset(&mut cur, 0x12340000);
     /// ```
     #[inline]
@@ -555,11 +579,11 @@ impl RhexdumpStdout {
     /// // Create a Rhexdump instance.
     /// let rhx = RhexdumpStdout::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = Cursor::new(&input);
     ///
-    /// // Formatting data to the temp file.
+    /// // Formatting data to stdout.
     /// rhx.hexdump(&mut cur);
     /// ```
     #[inline]
@@ -577,10 +601,10 @@ impl RhexdumpStdout {
     /// // Create a Rhexdump instance.
     /// let rhx = RhexdumpStdout::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     ///
-    /// // Formatting data to the temp file.
+    /// // Formatting data to stdout.
     /// rhx.hexdump_bytes_offset(input.as_bytes(), 0x12340000);
     /// ```
     #[inline]
@@ -601,10 +625,10 @@ impl RhexdumpStdout {
     /// // Create a Rhexdump instance.
     /// let rhx = RhexdumpStdout::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     ///
-    /// // Formatting data to the temp file.
+    /// // Formatting data to stdout.
     /// rhx.hexdump_bytes(input.as_bytes());
     /// ```
     #[inline]
@@ -620,10 +644,17 @@ impl RhexdumpStdout {
     /// ```
     /// use rhexdump::prelude::*;
     ///
-    /// let v = (0..0x14).collect::<Vec<u8>>();
+    /// // Create a Rhexdump instance.
     /// let rh = RhexdumpStdout::new();
+    ///
+    /// // Data to format.
+    /// let v = (0..0x14).collect::<Vec<u8>>();
     /// let mut cur = std::io::Cursor::new(&v);
+    ///
+    /// // Creating an iterator outputting to stdout.
     /// let mut iter = rh.iter(&mut cur).offset(0x12340000);
+    ///
+    /// // Displaying two lines of output.
     /// iter.next();
     /// iter.next();
     /// ```
@@ -702,7 +733,7 @@ mod tests {
             .open(test_file)
             .expect(&format!("Cannot create {}", filename));
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur = Cursor::new(&input);
 
@@ -741,7 +772,7 @@ mod tests {
             .open(test_file)
             .expect(&format!("Cannot create {}", filename));
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur = Cursor::new(&input);
 
@@ -780,7 +811,7 @@ mod tests {
             .open(test_file)
             .expect(&format!("Cannot create {}", filename));
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur = Cursor::new(&input);
 
@@ -819,7 +850,7 @@ mod tests {
             .open(test_file)
             .expect(&format!("Cannot create {}", filename));
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur = Cursor::new(&input);
 
@@ -928,7 +959,7 @@ mod tests {
         // Create a Rhexdump instance.
         let rhx = RhexdumpStdout::new();
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur = Cursor::new(&input);
 
@@ -941,7 +972,7 @@ mod tests {
         // Create a Rhexdump instance.
         let rhx = RhexdumpStdout::new();
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur = Cursor::new(&input);
 
@@ -954,7 +985,7 @@ mod tests {
         // Create a Rhexdump instance.
         let rhx = RhexdumpStdout::new();
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
         // Formatting data to the temp file.
@@ -966,7 +997,7 @@ mod tests {
         // Create a Rhexdump instance.
         let rhx = RhexdumpStdout::new();
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
         // Formatting data to the temp file.
@@ -975,20 +1006,34 @@ mod tests {
 
     #[test]
     fn rhx_rhexdump_stdout_iter_offset() {
-        let v = (0..0x14).collect::<Vec<u8>>();
+        // Create a Rhexdump instance.
         let rh = RhexdumpStdout::new();
-        let mut cur = Cursor::new(&v);
-        let mut iter = rh.iter(&mut cur).offset(0x12340000);
+
+        // Data to format.
+        let v = (0..0x14).collect::<Vec<u8>>();
+        let mut cur = std::io::Cursor::new(&v);
+
+        // Creating an iterator outputting to stdout.
+        let mut iter = rh.iter(&mut cur).offset(0x12340000);;
+
+        // Displaying two lines of output.
         iter.next();
         iter.next();
     }
 
     #[test]
     fn rhx_rhexdump_stdout_iter() {
-        let v = (0..0x14).collect::<Vec<u8>>();
+        // Create a Rhexdump instance.
         let rh = RhexdumpStdout::new();
-        let mut cur = Cursor::new(&v);
+
+        // Data to format.
+        let v = (0..0x14).collect::<Vec<u8>>();
+        let mut cur = std::io::Cursor::new(&v);
+
+        // Creating an iterator outputting to stdout.
         let mut iter = rh.iter(&mut cur);
+
+        // Displaying two lines of output.
         iter.next();
         iter.next();
     }

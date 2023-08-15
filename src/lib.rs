@@ -108,7 +108,7 @@
 //!     .open(test_file)
 //!     .expect(&format!("Cannot create {}", filename));
 //!
-//! // String that will be formatted.
+//! // String to format.
 //! let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 //! let mut cur = Cursor::new(&input);
 //!
@@ -153,7 +153,7 @@
 //! // Create a Rhexdump instance.
 //! let rhx = RhexdumpStdout::new();
 //!
-//! // String that will be formatted.
+//! // String to format.
 //! let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 //! let mut cur = std::io::Cursor::new(&input);
 //!
@@ -173,7 +173,7 @@
 //! // Create a Rhexdump instance.
 //! let rhx = Rhexdump::new();
 //!
-//! // String that will be formatted.
+//! // String to format.
 //! let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 //! let mut cur = std::io::Cursor::new(&input);
 //!

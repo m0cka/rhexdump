@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/github/v/tag/m0cka/rhexdump?color=1982c4&style=flat-square) ![License Badge](https://img.shields.io/github/license/m0cka/rhexdump?color=8ac926&style=flat-square) ![Dependencies](https://img.shields.io/badge/dependencies-none-ffca3a?style=flat-square) <!-- [![Documentation](https://img.shields.io/badge/documentation-doc.rs-ff595e?style=flat-square)](https://docs.rs/rhexdump/0.2.0/rhexdump/) -->
+![Version](https://img.shields.io/github/v/tag/m0cka/rhexdump?color=1982c4&style=flat-square) ![License Badge](https://img.shields.io/github/license/m0cka/rhexdump?color=8ac926&style=flat-square) ![Dependencies](https://img.shields.io/badge/dependencies-none-ffca3a?style=flat-square) [![Documentation](https://img.shields.io/badge/documentation-doc.rs-ff595e?style=flat-square)](https://docs.rs/rhexdump/0.2.0/rhexdump/)
 
 # Rhexdump
 
@@ -9,15 +9,8 @@ Rhexdump is a hexdump library written in Rust to format data in a fast, convenie
 Add the following line under `[dependencies]` in your `Cargo.toml` file.
 
 ```toml
-rhexdump = { git = "https://github.com/m0cka/rhexdump.git" }
-```
-
-<!--
-```toml
 rhexdump = "0.2.0"
 ```
--->
-
 
 ## Features
 
@@ -129,7 +122,7 @@ fn main() {
         .open(test_file)
         .expect(&format!("Cannot create {}", filename));
 
-    // String that will be formatted.
+    // String to format.
     let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     let mut cur = Cursor::new(&input);
 
@@ -178,7 +171,7 @@ fn main() {
     // Create a Rhexdump instance.
     let rhx = RhexdumpStdout::new();
 
-    // String that will be formatted.
+    // String to format.
     let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     let mut cur = std::io::Cursor::new(&input);
 
@@ -200,7 +193,7 @@ fn main() {
     // Create a Rhexdump instance.
     let rhx = Rhexdump::new();
 
-    // String that will be formatted.
+    // String to format.
     let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     let mut cur = std::io::Cursor::new(&input);
 

@@ -65,6 +65,7 @@ impl fmt::Display for RhexdumpConfig {
 }
 
 pub trait RhexdumpGetConfig {
+    /// Returns the configuration associated with a rhexdump instance.
     fn get_config(&self) -> RhexdumpConfig;
 
     /// Returns the total size of a formatted line.

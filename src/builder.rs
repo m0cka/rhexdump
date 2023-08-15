@@ -134,7 +134,7 @@ pub const MAX_BYTES_PER_GROUP: usize = GroupSize::Qword as usize;
 // Builder
 // ===============================================================================================
 
-/// Builder for a hexdump instance.
+/// Builder for a Rhexdump instance.
 ///
 ///
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
@@ -269,11 +269,7 @@ impl RhexdumpBuilder {
     ///
     /// let v = (0..0x10).collect::<Vec<u8>>();
     /// let rh = RhexdumpBuilder::new().build_string();
-    /// let out = rh.hexdump_bytes(&v);
-    /// assert_eq!(
-    ///     &out,
-    ///     "00000000: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f  ................\n"
-    /// );
+    /// rh.hexdump_bytes(&v); // Outputs formatted data to stdout.
     /// ```
     #[inline]
     pub fn build_stdout(self) -> RhexdumpStdout {

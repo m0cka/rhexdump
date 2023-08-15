@@ -45,7 +45,7 @@ impl<'r, R: Read, X: RhexdumpGetConfig + Copy> RhexdumpStringIter<'r, R, X> {
     /// // Create a Rhexdump instance.
     /// let rhx = Rhexdump::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = std::io::Cursor::new(&input);
     ///
@@ -136,7 +136,7 @@ impl<'r, R: Read, X: RhexdumpGetConfig + Copy> RhexdumpStringIter<'r, R, X> {
     /// // Create a Rhexdump instance.
     /// let rhx = Rhexdump::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = std::io::Cursor::new(&input);
     ///
@@ -230,7 +230,7 @@ impl<'r, R: Read, X: RhexdumpGetConfig + Copy> Iterator for RhexdumpStringIter<'
 }
 
 // ===============================================================================================
-// Generic iterator
+// Generic Iterator
 // ===============================================================================================
 
 /// Iterator over a data source implementing [`std::io::Read`] and writing to a destination
@@ -254,9 +254,11 @@ impl<'r, 'w, R: Read, W: Write, X: RhexdumpGetConfig + Copy> RhexdumpIter<'r, 'w
     /// // Create a Rhexdump instance.
     /// let rhx = Rhexdump::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur_in = std::io::Cursor::new(&input);
+    ///
+    /// // Output cursor.
     /// let mut output = Vec::new();
     /// let mut cur_out = std::io::Cursor::new(&mut output);
     ///
@@ -290,9 +292,11 @@ impl<'r, 'w, R: Read, W: Write, X: RhexdumpGetConfig + Copy> RhexdumpIter<'r, 'w
     /// // Create a Rhexdump instance.
     /// let rhx = Rhexdump::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur_in = std::io::Cursor::new(&input);
+    ///
+    /// // Output cursor.
     /// let mut output = Vec::new();
     /// let mut cur_out = std::io::Cursor::new(&mut output);
     ///
@@ -320,7 +324,7 @@ impl<'r, 'w, R: Read, W: Write, X: RhexdumpGetConfig + Copy> Iterator
 }
 
 // ===============================================================================================
-// Generic iterator
+// Stdout Iterator
 // ===============================================================================================
 
 /// Iterator over a data source implementing [`std::io::Read`] and writing to [`std::io::Stdout`].
@@ -343,7 +347,7 @@ impl<'r, R: Read, X: RhexdumpGetConfig + Copy> RhexdumpStdoutIter<'r, R, X> {
     /// // Create a Rhexdump instance.
     /// let rhx = Rhexdump::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = std::io::Cursor::new(&input);
     ///
@@ -371,7 +375,7 @@ impl<'r, R: Read, X: RhexdumpGetConfig + Copy> RhexdumpStdoutIter<'r, R, X> {
     /// // Create a Rhexdump instance.
     /// let rhx = Rhexdump::new();
     ///
-    /// // String that will be formatted.
+    /// // String to format.
     /// let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     /// let mut cur = std::io::Cursor::new(&input);
     ///
@@ -410,7 +414,7 @@ mod tests {
         // Create a Rhexdump instance.
         let rhx = Rhexdump::new();
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur = Cursor::new(&input);
 
@@ -432,9 +436,11 @@ mod tests {
         // Create a Rhexdump instance.
         let rhx = Rhexdump::new();
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur_in = Cursor::new(&input);
+
+        // Output cursor.
         let mut output = Vec::new();
         let mut cur_out = Cursor::new(&mut output);
 
@@ -457,7 +463,7 @@ mod tests {
         // Create a Rhexdump instance.
         let rhx = Rhexdump::new();
 
-        // String that will be formatted.
+        // String to format.
         let input = String::from("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
         let mut cur = Cursor::new(&input);
 

@@ -1,9 +1,9 @@
 [package]
 name = "rhexdump"
-version = "0.1.1"
-authors = ["mocka <mocka@protonmail.com>"]
+version = "0.2.0"
+authors = ["mocka <mocka.nara@gmail.com>"]
 edition = "2021"
-description = "A hexdump library to format byte slices and files"
+description = "A hexdump library to display binary blobs."
 documentation = "https://docs.rs/rhexdump"
 readme = "README.md"
 repository = "https://github.com/m0cka/rhexdump/"
